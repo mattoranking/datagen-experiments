@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
+import ExperimentHeader from "./ExperimentHeader";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
@@ -398,18 +398,7 @@ export default function BinaryExplorer() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "32px" }}>
-          <Link to="/" style={{
-            fontFamily: MONO,
-            fontSize: "11px",
-            color: palette.accent,
-            textTransform: "uppercase",
-            letterSpacing: "0.2em",
-            marginBottom: "8px",
-            textDecoration: "none",
-            display: "block",
-          }}>
-            Episode 1 · Experiment 1
-          </Link>
+          <ExperimentHeader number={1} />
           <h1 style={{
             fontFamily: SANS,
             fontSize: "28px",

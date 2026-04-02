@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import ExperimentHeader from "./ExperimentHeader";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
@@ -301,13 +301,7 @@ export default function HexEditorSim() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <Link to="/" style={{
-            fontFamily: MONO, fontSize: "11px", color: P.accent,
-            textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "8px",
-            textDecoration: "none", display: "block",
-          }}>
-            Episode 1 · Experiment 2
-          </Link>
+          <ExperimentHeader number={2} />
           <h1 style={{
             fontFamily: SANS, fontSize: "28px", fontWeight: 800,
             color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em",
