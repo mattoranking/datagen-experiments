@@ -31,7 +31,7 @@ function Home() {
         }}>
           3 → Memory Grid
         </Link>
-        <Link to="/file-Anatomy" style={{
+        <Link to="/file-anatomy" style={{
           padding: "20px 32px", background: "#111827", border: "1px solid #1e2d4a",
           borderRadius: "12px", color: "#9d246e", textDecoration: "none", fontSize: "18px",
         }}>
