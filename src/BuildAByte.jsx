@@ -398,7 +398,7 @@ export default function BinaryExplorer() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "32px" }}>
-          <ExperimentHeader number={1} />
+          <ExperimentHeader number={3} />
           <h1 style={{
             fontFamily: SANS,
             fontSize: "28px",

@@ -386,7 +386,7 @@ export default function MemoryGrid() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <ExperimentHeader number={3} />
+          <ExperimentHeader number={5} />
           <h1 style={{
             fontFamily: SANS, fontSize: "28px", fontWeight: 800,
             color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em",

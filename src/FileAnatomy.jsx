@@ -421,7 +421,7 @@ export default function FileAnatomy() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <ExperimentHeader number={4} />
+          <ExperimentHeader number={6} />
           <h1 style={{
             fontFamily: SANS, fontSize: "28px", fontWeight: 800,
             color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em",
