@@ -337,8 +337,9 @@ export default function BusExplorer() {
 
     let i = 0;
     function tick() {
-      setStepIdx(i);
-      setLog((prev) => [`  Step ${i + 1}: ${op.steps[i].narrative}`, ...prev].slice(0, 20));
+      const cur = i;
+      setStepIdx(cur);
+      setLog((prev) => [`  Step ${cur + 1}: ${op.steps[cur].narrative}`, ...prev].slice(0, 20));
       i++;
       if (i < op.steps.length) {
         timerRef.current = setTimeout(tick, 1200);

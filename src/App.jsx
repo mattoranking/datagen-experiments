@@ -29,7 +29,7 @@ function Home() {
           {mode === "dark" ? "☀️" : "🌙"}
         </button>
       </div>
-      <h1 style={{ fontSize: "32px", marginBottom: "8px" }}>Beneath the Bits</h1>
+      <h1 style={{ color: P.text, fontSize: "32px", marginBottom: "8px" }}>Beneath the Bits</h1>
       <p style={{ color: P.textDim, marginBottom: "40px" }}>Episode 1 Experiments</p>
       <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
         <Link to="/bit-ops" style={{
