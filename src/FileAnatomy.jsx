@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import ExperimentHeader from "./ExperimentHeader";
+import { useTheme } from "./ThemeContext";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
@@ -211,6 +212,7 @@ function useAnimatedBuild(totalBytes) {
 
 // ── Pixel editor grid ──
 function PixelEditor({ pixels, width, height, onChange }) {
+  const P = useTheme().palette;
   const [painting, setPainting] = useState(false);
   const [currentColor, setCurrentColor] = useState({ r: 255, g: 0, b: 0 });
 
@@ -283,6 +285,7 @@ function PixelEditor({ pixels, width, height, onChange }) {
 
 // ── BMP Preview from bytes ──
 function BMPPreview({ bytes, revealCount, width, height }) {
+  const P = useTheme().palette;
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -319,6 +322,7 @@ function BMPPreview({ bytes, revealCount, width, height }) {
 
 // ── Hex dump with region highlighting ──
 function HexDump({ bytes, bmpRegions, revealCount, hoveredRegion, onHoverRegion, onLeave }) {
+  const P = useTheme().palette;
   const rows = [];
   for (let i = 0; i < Math.min(bytes.length, revealCount); i += 16) {
     rows.push({ offset: i, data: bytes.slice(i, Math.min(i + 16, revealCount)), regions: bmpRegions.slice(i, Math.min(i + 16, revealCount)) });
@@ -363,6 +367,7 @@ function HexDump({ bytes, bmpRegions, revealCount, hoveredRegion, onHoverRegion,
 
 // ── Region legend ──
 function RegionInfo({ region }) {
+  const P = useTheme().palette;
   if (!region) return (
     <div style={{
       fontFamily: SANS, fontSize: "13px", color: P.textDim, padding: "12px",
@@ -392,6 +397,7 @@ function RegionInfo({ region }) {
 
 // ── Main App ──
 export default function FileAnatomy() {
+  const P = useTheme().palette;
   const [imgWidth] = useState(16);
   const [imgHeight] = useState(16);
   const [presetIdx, setPresetIdx] = useState(0);
@@ -421,7 +427,7 @@ export default function FileAnatomy() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <ExperimentHeader number={6} />
+          <ExperimentHeader number={8} />
           <h1 style={{
             fontFamily: SANS, fontSize: "28px", fontWeight: 800,
             color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em",

@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import ExperimentHeader from "./ExperimentHeader";
+import { useTheme } from "./ThemeContext";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
@@ -40,6 +41,7 @@ const OPS = {
 
 // ── Bit display row ──
 function BitRow({ bits, label, color, highlight }) {
+  const P = useTheme().palette;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <span style={{ fontFamily: MONO, fontSize: "13px", color: P.textDim, width: "56px", textAlign: "right", flexShrink: 0 }}>
@@ -68,6 +70,7 @@ function BitRow({ bits, label, color, highlight }) {
 
 // ── Toggleable bit row ──
 function ToggleBitRow({ bits, label, color, onToggle }) {
+  const P = useTheme().palette;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <span style={{ fontFamily: MONO, fontSize: "13px", color: P.textDim, width: "56px", textAlign: "right", flexShrink: 0 }}>
@@ -98,6 +101,7 @@ function ToggleBitRow({ bits, label, color, onToggle }) {
 
 // ── Truth table for binary ops ──
 function TruthTable({ op }) {
+  const P = useTheme().palette;
   const info = OPS[op];
   const rows = [
     { a: 0, b: 0 },
@@ -144,6 +148,7 @@ function TruthTable({ op }) {
 
 // ── Shift visualizer ──
 function ShiftVisual({ bits, amount, op, color }) {
+  const P = useTheme().palette;
   const originalBin = toBin(bits.reduce((a, b, i) => a + b * Math.pow(2, 7 - i), 0));
   const val = bits.reduce((a, b, i) => a + b * Math.pow(2, 7 - i), 0);
 
@@ -198,6 +203,7 @@ function ShiftVisual({ bits, amount, op, color }) {
 
 // ── Use cases panel ──
 function UseCases({ op }) {
+  const P = useTheme().palette;
   const cases = {
     and: [
       { title: "Masking bits", code: "value & 0x0F", explain: "Extracts the lower 4 bits (lower nibble). The mask 00001111 zeroes out everything above." },
@@ -267,6 +273,7 @@ function UseCases({ op }) {
 
 // ── Main ──
 export default function BitwiseOps() {
+  const P = useTheme().palette;
   const [aBits, setABits] = useState([1, 0, 1, 1, 0, 1, 0, 1]); // 0xB5 = 181
   const [bBits, setBBits] = useState([1, 1, 0, 0, 1, 0, 1, 0]); // 0xCA = 202
   const [op, setOp] = useState("and");
@@ -307,7 +314,7 @@ export default function BitwiseOps() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <ExperimentHeader number={2} />
+          <ExperimentHeader number={1} />
           <h1 style={{ fontFamily: SANS, fontSize: "28px", fontWeight: 800, color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em" }}>
             Bitwise Operations Lab
           </h1>

@@ -1,30 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import ExperimentHeader from "./ExperimentHeader";
+import { useTheme } from "./ThemeContext";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
-
-// ── Color Palette: Dark terminal aesthetic with electric accents ──
-const palette = {
-  bg: "#0a0e17",
-  surface: "#111827",
-  surfaceAlt: "#1a2235",
-  border: "#1e2d4a",
-  borderActive: "#3b82f6",
-  text: "#e2e8f0",
-  textDim: "#64748b",
-  textMuted: "#374151",
-  bit0: "#1e293b",
-  bit1: "#3b82f6",
-  bit1Glow: "rgba(59,130,246,0.35)",
-  accent: "#3b82f6",
-  accentAlt: "#06b6d4",
-  green: "#10b981",
-  orange: "#f59e0b",
-  pink: "#ec4899",
-  red: "#ef4444",
-  purple: "#8b5cf6",
-};
 
 // ── Helpers ──
 function byteToBinaryArray(val) {
@@ -61,6 +40,7 @@ function getAsciiLabel(val) {
 
 // ── Bit Component ──
 function Bit({ value, index, onToggle, powerVal, animate }) {
+  const palette = useTheme().palette;
   const [flash, setFlash] = useState(false);
   const prevVal = useRef(value);
 
@@ -152,6 +132,7 @@ function Bit({ value, index, onToggle, powerVal, animate }) {
 
 // ── Value Display Card ──
 function ValueCard({ label, value, sub, color, icon }) {
+  const palette = useTheme().palette;
   return (
     <div style={{
       background: palette.surfaceAlt,
@@ -197,6 +178,7 @@ function ValueCard({ label, value, sub, color, icon }) {
 
 // ── Grayscale Preview ──
 function GrayscalePreview({ value }) {
+  const palette = useTheme().palette;
   const hex = toHex(value);
   const color = `#${hex}${hex}${hex}`;
   return (
@@ -241,6 +223,7 @@ function GrayscalePreview({ value }) {
 
 // ── Auto Counter ──
 function AutoCounter({ running, speed, onToggle, onSpeedChange, onReset }) {
+  const palette = useTheme().palette;
   return (
     <div style={{
       display: "flex",
@@ -303,6 +286,7 @@ function AutoCounter({ running, speed, onToggle, onSpeedChange, onReset }) {
 
 // ── Binary Math Breakdown ──
 function MathBreakdown({ bits }) {
+  const palette = useTheme().palette;
   const terms = bits.map((b, i) => ({ bit: b, power: 7 - i, value: b * Math.pow(2, 7 - i) }));
   const activeTerms = terms.filter(t => t.bit === 1);
 
@@ -358,6 +342,7 @@ function MathBreakdown({ bits }) {
 
 // ── Main App ──
 export default function BinaryExplorer() {
+  const palette = useTheme().palette;
   const [byte, setByte] = useState(0);
   const [running, setRunning] = useState(false);
   const [speed, setSpeed] = useState(400);
@@ -398,7 +383,7 @@ export default function BinaryExplorer() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "32px" }}>
-          <ExperimentHeader number={3} />
+          <ExperimentHeader number={5} />
           <h1 style={{
             fontFamily: SANS,
             fontSize: "28px",

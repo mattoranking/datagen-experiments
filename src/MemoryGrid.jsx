@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import ExperimentHeader from "./ExperimentHeader";
+import { useTheme } from "./ThemeContext";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
@@ -186,6 +187,7 @@ function useCustomInput(baseMem) {
 
 // ── Memory Cell ──
 function MemCell({ cell, isHovered, onHover, onLeave }) {
+  const P = useTheme().palette;
   const dt = DATA_TYPES[cell.type] || DATA_TYPES.empty;
   const isEmpty = cell.type === "empty";
 
@@ -249,6 +251,7 @@ function MemCell({ cell, isHovered, onHover, onLeave }) {
 
 // ── Inspector panel ──
 function CellInspector({ cell }) {
+  const P = useTheme().palette;
   if (!cell) return (
     <div style={{
       background: P.surfaceAlt, border: `1px solid ${P.border}`, borderRadius: "10px",
@@ -334,6 +337,7 @@ function CellInspector({ cell }) {
 
 // ── Legend ──
 function Legend({ mem }) {
+  const P = useTheme().palette;
   const types = new Set(mem.filter(c => c.type !== "empty").map(c => c.type));
   if (types.size === 0) return null;
 
@@ -360,6 +364,7 @@ function Legend({ mem }) {
 
 // ── Main App ──
 export default function MemoryGrid() {
+  const P = useTheme().palette;
   const presets = useMemo(() => makePresets(), []);
   const [presetIdx, setPresetIdx] = useState(0);
   const [hoveredAddr, setHoveredAddr] = useState(null);
@@ -386,7 +391,7 @@ export default function MemoryGrid() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <ExperimentHeader number={5} />
+          <ExperimentHeader number={7} />
           <h1 style={{
             fontFamily: SANS, fontSize: "28px", fontWeight: 800,
             color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em",

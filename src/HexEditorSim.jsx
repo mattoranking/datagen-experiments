@@ -1,25 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import ExperimentHeader from "./ExperimentHeader";
+import { useTheme } from "./ThemeContext";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
-
-const P = {
-  bg: "#0a0e17",
-  surface: "#111827",
-  surfaceAlt: "#1a2235",
-  border: "#1e2d4a",
-  text: "#e2e8f0",
-  textDim: "#64748b",
-  textMuted: "#374151",
-  accent: "#3b82f6",
-  accentAlt: "#06b6d4",
-  green: "#10b981",
-  orange: "#f59e0b",
-  pink: "#ec4899",
-  purple: "#8b5cf6",
-  red: "#ef4444",
-};
 
 function toHex(v) { return v.toString(16).toUpperCase().padStart(2, "0"); }
 function toBin(v) { return v.toString(2).padStart(8, "0"); }
@@ -27,6 +11,7 @@ function toPrintable(v) { return v >= 32 && v <= 126 ? String.fromCharCode(v) : 
 
 // ── Offset gutter ──
 function OffsetColumn({ count }) {
+  const P = useTheme().palette;
   const rows = Math.ceil(count / 16) || 1;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
@@ -45,6 +30,7 @@ function OffsetColumn({ count }) {
 
 // ── Single hex byte ──
 function HexByte({ value, index, isHovered, onHover, onLeave }) {
+  const P = useTheme().palette;
   return (
     <span
       onMouseEnter={() => onHover(index)}
@@ -71,6 +57,7 @@ function HexByte({ value, index, isHovered, onHover, onLeave }) {
 
 // ── Hex grid ──
 function HexGrid({ bytes, hoveredIdx, onHover, onLeave }) {
+  const P = useTheme().palette;
   const rows = [];
   for (let i = 0; i < bytes.length; i += 16) {
     rows.push(bytes.slice(i, i + 16));
@@ -106,6 +93,7 @@ function HexGrid({ bytes, hoveredIdx, onHover, onLeave }) {
 
 // ── ASCII column ──
 function AsciiColumn({ bytes, hoveredIdx, onHover, onLeave }) {
+  const P = useTheme().palette;
   const rows = [];
   for (let i = 0; i < bytes.length; i += 16) {
     rows.push(bytes.slice(i, i + 16));
@@ -152,6 +140,7 @@ function AsciiColumn({ bytes, hoveredIdx, onHover, onLeave }) {
 
 // ── Detail inspector panel ──
 function ByteInspector({ byte, index }) {
+  const P = useTheme().palette;
   if (byte == null) return (
     <div style={{
       background: P.surfaceAlt, border: `1px solid ${P.border}`, borderRadius: "10px",
@@ -214,6 +203,7 @@ function ByteInspector({ byte, index }) {
 
 // ── Encoding selector ──
 function EncodingPicker({ encoding, onChange }) {
+  const P = useTheme().palette;
   const options = ["UTF-8", "ASCII (7-bit)", "Latin-1"];
   return (
     <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
@@ -239,6 +229,7 @@ function EncodingPicker({ encoding, onChange }) {
 
 // ── Stats bar ──
 function StatsBar({ bytes, text }) {
+  const P = useTheme().palette;
   return (
     <div style={{
       display: "flex", gap: "20px", flexWrap: "wrap",
@@ -267,6 +258,7 @@ const PRESETS = [
 
 // ── Main App ──
 export default function HexEditorSim() {
+  const P = useTheme().palette;
   const [text, setText] = useState("Hello");
   const [encoding, setEncoding] = useState("UTF-8");
   const [hoveredIdx, setHoveredIdx] = useState(null);
@@ -301,7 +293,7 @@ export default function HexEditorSim() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <ExperimentHeader number={4} />
+          <ExperimentHeader number={6} />
           <h1 style={{
             fontFamily: SANS, fontSize: "28px", fontWeight: 800,
             color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em",

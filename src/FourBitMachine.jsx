@@ -1,26 +1,9 @@
 import { useState, useMemo, useCallback } from "react";
 import ExperimentHeader from "./ExperimentHeader";
+import { useTheme } from "./ThemeContext";
 
 const MONO = "'IBM Plex Mono', 'Fira Code', monospace";
 const SANS = "'DM Sans', 'Segoe UI', sans-serif";
-
-const P = {
-  bg: "#0a0e17",
-  surface: "#111827",
-  surfaceAlt: "#1a2235",
-  border: "#1e2d4a",
-  text: "#e2e8f0",
-  textDim: "#64748b",
-  textMuted: "#374151",
-  accent: "#3b82f6",
-  accentAlt: "#06b6d4",
-  green: "#10b981",
-  orange: "#f59e0b",
-  pink: "#ec4899",
-  purple: "#8b5cf6",
-  red: "#ef4444",
-  yellow: "#eab308",
-};
 
 function toBin4(v) {
   return ((v & 0xF) >>> 0).toString(2).padStart(4, "0");
@@ -50,6 +33,7 @@ function addBinary4(a, b) {
 
 // ── Bit Toggle ──
 function Bit4({ value, index, onToggle, weight, color }) {
+  const P = useTheme().palette;
   const isOn = value === 1;
   return (
     <div
@@ -80,6 +64,7 @@ function Bit4({ value, index, onToggle, weight, color }) {
 
 // ── Value display row ──
 function ValRow({ label, value, color, extra }) {
+  const P = useTheme().palette;
   return (
     <div style={{
       display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -97,6 +82,7 @@ function ValRow({ label, value, color, extra }) {
 
 // ── Mode selector tab ──
 function ModeTab({ label, active, onClick, color }) {
+  const P = useTheme().palette;
   return (
     <button onClick={onClick} style={{
       fontFamily: MONO, fontSize: "12px", padding: "8px 16px", borderRadius: "6px",
@@ -112,6 +98,7 @@ function ModeTab({ label, active, onClick, color }) {
 
 // ── Two's complement step-by-step ──
 function TwosCompSteps({ bits }) {
+  const P = useTheme().palette;
   const original = bits.join("");
   const flipped = bits.map(b => b === 0 ? 1 : 0);
   const flippedStr = flipped.join("");
@@ -165,6 +152,7 @@ function TwosCompSteps({ bits }) {
 
 // ── Addition demo ──
 function AdditionDemo({ bits }) {
+  const P = useTheme().palette;
   const [bBits, setBBits] = useState([0, 0, 1, 0]); // default: 2
   const aVal = toUnsigned(bits);
   const bVal = toUnsigned(bBits);
@@ -261,6 +249,7 @@ function AdditionDemo({ bits }) {
 
 // ── Full range table ──
 function RangeTable({ mode }) {
+  const P = useTheme().palette;
   const rows = Array.from({ length: 16 }, (_, i) => {
     const bits = toBin4(i).split("").map(Number);
     const unsigned = i;
@@ -321,6 +310,7 @@ function RangeTable({ mode }) {
 
 // ── Main ──
 export default function FourBitMachine() {
+  const P = useTheme().palette;
   const [bits, setBits] = useState([0, 1, 0, 1]); // default: 5
   const [mode, setMode] = useState("unsigned");
 
@@ -348,7 +338,7 @@ export default function FourBitMachine() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
-          <ExperimentHeader number={1} />
+          <ExperimentHeader number={2} />
           <h1 style={{ fontFamily: SANS, fontSize: "28px", fontWeight: 800, color: P.text, margin: "0 0 6px 0", letterSpacing: "-0.02em" }}>
             The 4-Bit Machine
           </h1>
